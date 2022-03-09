@@ -128,7 +128,6 @@ public class LobbyActivity extends AppCompatActivity {
             finishAndRemoveTask();
             System.exit(0);
         }
-        super.onBackPressed();
     }
 
     public void showMessage(String str) {

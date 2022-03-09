@@ -202,7 +202,6 @@ public class RoomActivity extends AppCompatActivity {
             intent.putExtra("message", "quit");
             startService(intent);
         }
-        super.onBackPressed();
     }
 
     public void showMessage(String str) {
