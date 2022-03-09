@@ -15,6 +15,7 @@ import java.util.ArrayList;
 
 public class LobbyActivity extends AppCompatActivity {
     private static final String SPLITER = "#!#";
+    private long backpressedTime = 0;
     TextView chat;
     TextView send;
     RecyclerAdapter adapter;
@@ -115,13 +116,18 @@ public class LobbyActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        Intent intent = new Intent(getApplicationContext(), SocketService.class);
-        intent.putExtra("message", "quit");
-        startService(intent);
-        stopService(intent);
-        moveTaskToBack(true);
-        finishAndRemoveTask();
-        System.exit(0);
+        if (System.currentTimeMillis() > backpressedTime + 2000) {
+            backpressedTime = System.currentTimeMillis();
+            showMessage("\'뒤로\' 버튼을 한번 더 누르시면 종료됩니다.");
+        } else if (System.currentTimeMillis() <= backpressedTime + 2000) {
+            Intent intent = new Intent(getApplicationContext(), SocketService.class);
+            intent.putExtra("message", "quit");
+            startService(intent);
+            stopService(intent);
+            moveTaskToBack(true);
+            finishAndRemoveTask();
+            System.exit(0);
+        }
         super.onBackPressed();
     }
 

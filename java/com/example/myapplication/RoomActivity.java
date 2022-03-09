@@ -17,6 +17,7 @@ import java.util.ArrayList;
 
 public class RoomActivity extends AppCompatActivity {
     private static final String SPLITER = "#!#";
+    private long backpressedTime = 0;
     TextView chat;
     TextView send;
     TextView turn;
@@ -191,11 +192,16 @@ public class RoomActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        Intent secIntent = new Intent(getApplicationContext(), LobbyActivity.class);
-        startActivity(secIntent);
-        Intent intent = new Intent(getApplicationContext(), SocketService.class);
-        intent.putExtra("message", "quit");
-        startService(intent);
+        if (System.currentTimeMillis() > backpressedTime + 2000) {
+            backpressedTime = System.currentTimeMillis();
+            showMessage("\'뒤로\' 버튼을 한번 더 누르시면 종료됩니다.");
+        } else if (System.currentTimeMillis() <= backpressedTime + 2000) {
+            Intent secIntent = new Intent(getApplicationContext(), LobbyActivity.class);
+            startActivity(secIntent);
+            Intent intent = new Intent(getApplicationContext(), SocketService.class);
+            intent.putExtra("message", "quit");
+            startService(intent);
+        }
         super.onBackPressed();
     }
 
