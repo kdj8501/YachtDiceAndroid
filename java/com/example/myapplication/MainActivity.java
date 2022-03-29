@@ -29,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
     public void onClick1(View v) {
         nickname = nickText.getText().toString().trim();
         Intent intent = new Intent(getApplicationContext(), SocketService.class);
-        intent.putExtra("message", nickname);
+        intent.putExtra("message", "name:" + nickname);
         startService(intent);
     }
     @Override
