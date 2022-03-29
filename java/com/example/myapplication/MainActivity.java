@@ -48,10 +48,18 @@ public class MainActivity extends AppCompatActivity {
                     startActivity(secIntent);
                     finish();
                 }
-                else {
+                else if (tokens[0].equals("unable")){
                     showMessage("이미 접속중인 닉네임입니다.");
                     Intent newIntent = new Intent(getApplicationContext(), SocketService.class);
                     stopService(newIntent);
+                }
+                else {
+                    showMessage("서버와의 연결이 끊어졌습니다.");
+                    Intent newIntent = new Intent(getApplicationContext(), SocketService.class);
+                    stopService(newIntent);
+                    finishAffinity();
+                    System.runFinalization();
+                    System.exit(0);
                 }
             }
         }

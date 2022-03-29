@@ -105,6 +105,14 @@ public class LobbyActivity extends AppCompatActivity {
                         rooms.add(tmp[i]);
                 adapter.notifyDataSetChanged();
             }
+            else if (tokens[0].equals("connect")) {
+                    showMessage("서버와의 연결이 끊어졌습니다.");
+                    Intent newIntent = new Intent(getApplicationContext(), SocketService.class);
+                    stopService(newIntent);
+                    finishAffinity();
+                    System.runFinalization();
+                    System.exit(0);
+            }
         }
     }
 
@@ -124,13 +132,13 @@ public class LobbyActivity extends AppCompatActivity {
             intent.putExtra("message", "quit");
             startService(intent);
             stopService(intent);
-            moveTaskToBack(true);
-            finishAndRemoveTask();
+            finishAffinity();
+            System.runFinalization();
             System.exit(0);
         }
     }
 
     public void showMessage(String str) {
-        Toast.makeText(this, str, Toast.LENGTH_LONG).show();
+        Toast.makeText(this, str, Toast.LENGTH_SHORT).show();
     }
 }

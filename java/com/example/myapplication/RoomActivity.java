@@ -181,6 +181,14 @@ public class RoomActivity extends AppCompatActivity {
                 else if (tokens[1].equals("fullroll"))
                     showMessage("더 이상 주사위를 굴릴 수 없습니다.");
             }
+            else if (tokens[0].equals("connect")) {
+                showMessage("서버와의 연결이 끊어졌습니다.");
+                Intent newIntent = new Intent(getApplicationContext(), SocketService.class);
+                stopService(newIntent);
+                finishAffinity();
+                System.runFinalization();
+                System.exit(0);
+            }
         }
     }
 
@@ -205,6 +213,6 @@ public class RoomActivity extends AppCompatActivity {
     }
 
     public void showMessage(String str) {
-        Toast.makeText(this, str, Toast.LENGTH_LONG).show();
+        Toast.makeText(this, str, Toast.LENGTH_SHORT).show();
     }
 }
