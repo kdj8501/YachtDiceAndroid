@@ -13,7 +13,7 @@ import java.net.Socket;
 import java.nio.charset.StandardCharsets;
 
 public class SocketService extends Service {
-    public static final String SERVER_IP = "125.185.193.29";
+    public static final String SERVER_IP = "127.0.0.1";
     public static final int SERVER_PORT = 7778;
     Socket socket;
     boolean usable;
